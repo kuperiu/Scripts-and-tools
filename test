@@ -1,0 +1,74 @@
+#!/usr/bin/env python
+import optparse, httplib, urllib, re, csv, sys
+
+def findReference(url, flag):
+  html = urllib.urlopen(url).read()
+  soup = BeautifulSoup(html, 'html.parser')
+  tags = soup.find_all('script')
+  if flag == 'C':
+     for tag in tags:
+       if ('api_dynamic.js' in str(tag.get('src'))) | ('api_static.js' in str(tag.get('src'))):
+         return "OK"
+  else:
+     for tag in tags:
+       match1 = re.search('api.dynamicyield.com/api/(.*)/api_dynamic.js',str(tag.get('src')))
+       match2 = re.search('api.dynamicyield.com/api/(.*)/api_static.js',str(tag.get('src')))
+       if (match1 is not None) | (match2 is not None):
+         return "OK"
+  return "CRITICAL"
+
+def printStatus(url, switch, status):
+  if switch == "verbose":
+    print (url + " " + status)
+  elif switch == None:
+    if status is not "OK":
+     print (url + " " + status)
+  else:
+     pass 
+
+def checkUrl(url, flag, switch):
+  if 'http://' not in url:
+    url = 'http://' + url
+  try:
+      res = urllib.urlopen(url)
+  except:
+      print(url+" WARNING")
+  else:
+      if res.getcode() == 200:
+         if 'text/html' in res.info()['Content-Type']:
+            status = findReference(url, flag)
+            if status == "OK":
+              #sys.exit(0)
+              printStatus(url, switch, "OK")
+            else:
+              #sys.exit(2)
+              printStatus(url, switch, "CRITICAL")
+         else:
+             #sys.exit(1)
+             printStatus(url, switch, "WARNING")
+      else:
+         print "lala"
+        #print sys.exit(1)
+      #  printStatus(url, switch, "WARNING")
+
+def readCsv(file, switch):
+  with open(file, 'rb') as f:
+    reader = csv.reader(f,skipinitialspace=True,delimiter=',')
+    for row in reader:
+      try:
+        checkUrl(row[0],row[1], switch)
+      except:
+        print(row[0]+" UNKNOWN")
+        sys.exit(3)
+
+def main():
+  p = optparse.OptionParser(description='Finds dynamicyield embeded javascript')
+  p.add_option('-v', '--verbose', action ='store_true', help='returns verbose output')
+  p.add_option('-q', '--quiet', action ='store_true', help='no output')
+  options, arguments = p.parse_args()
+  print len(sys.argv)    
+  print str(sys.argv)
+  print sys.argv[0]
+  print args
+if __name__ == '__main__':
+  main()

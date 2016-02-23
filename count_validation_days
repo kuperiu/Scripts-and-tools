@@ -1,12 +1,19 @@
 #!/usr/bin/env python
 from datetime import datetime
 from dateutil import parser
-import os, sys
+import os, sys, optparse
 
-valid = sys.argv[1]
-print valid
-date = os.popen('echo "Valid from: Sun Jan 24 07:20:13 PST 2016 until: Wed Feb 22 07:20:13 PST 2017"')
-string = date.read()
-string = string.split("until: ")[-1:]
-expiration_date = parser.parse(string[0])
-print (expiration_date - datetime.today()).days
+def count_validation_days():
+ date = os.popen('echo "Valid from: Sun Jan 24 07:20:13 PST 2016 until: Wed Feb 22 07:20:13 PST 2017"')
+ string = date.read()
+ string = string.split("until: ")[-1:]
+ expiration_date = parser.parse(string[0])
+ print (expiration_date - datetime.today()).days
+
+def main():
+  p = optparse.OptionParser(description='get all the types name from an elasticsearch index')
+  p.add_option('-c', '--certificate', action ='store', help='The certificate theat needs to be checked')
+  p.add_option('-i', '--index', action ='store', help='The certifcate password')
+  options, arguments = p.parse_args()
+if __name__ == '__main__':
+  main()
