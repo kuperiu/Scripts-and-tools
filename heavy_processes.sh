@@ -7,7 +7,7 @@ COMMENT
 sum=$(ps -e -o rss,cmd | sort -nk +1 | awk {'print $1,$2'} | tail -n 5 | awk '{ sum+=$1} END {print sum}')
 total=$(free -k | sed -n 2p | awk {'print awk $2'})
 
-#if the process are taking 80 percents of the tootal memory
+#if the processes are taking 80 percents of the tootal memory
 if (($(($total*80/100)) < $sum)); then
  processes=($(ps -e -o rss,cmd | sort -nk +1 | awk {'print $1,$2'} | tail -n 5))
  i=0
