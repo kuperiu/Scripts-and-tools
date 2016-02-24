@@ -11,7 +11,6 @@ total=$(free -k | sed -n 2p | awk {'print awk $2'})
 if (($(($total*80/100)) < $sum)); then
  processes=($(ps -e -o rss,cmd | sort -nk +1 | awk {'print $1,$2'} | tail -n 5))
  i=0
- declare -A name
  #render the html
  (
  echo "To: mail@example.com"
