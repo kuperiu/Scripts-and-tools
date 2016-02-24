@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 <<COMMENT
 This script checks if the 5 heaviest processes are taking more than 80% of the total server memory
 If so it will send a table of the processes names and the memory they consume
