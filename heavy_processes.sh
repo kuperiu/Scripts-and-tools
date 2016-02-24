@@ -14,7 +14,7 @@ if (($(($total*80/100)) < $sum)); then
  declare -A name
  #render the html
  (
- echo "To: lior.kuperiu@worldmate.com"
+ echo "To: mail@example.com"
  echo "Subject: $(hostname) is overloaded"
  echo "Content-Type: text/html"
  echo
