@@ -1,0 +1,20 @@
+var mapFunction1 = function() {
+                      if(this.a == "kuperiu" || this.b == "kuperiu" || this.c == "kuperiu")
+                       emit("kuperiu", {count: 1});
+                   };
+var reduceFunction1 = function(key, values) {
+                     var sum = 0;
+                     values.forEach(function(value)
+                     {
+                     sum += value['count'];
+                     });
+                     return {count: sum};
+             };
+db.coltest.mapReduce(
+  mapFunction1,
+  reduceFunction1,
+  {
+  query: { date: { $gt: ISODate("2016-03-07T14:16:00.268Z") } },
+  out: {reduce: "map_reduce_example"}
+  }
+);
