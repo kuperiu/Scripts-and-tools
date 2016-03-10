@@ -1,0 +1,9 @@
+{
+    "name": "leads_api",
+    "main": "app.js",
+    "author": "lior kuperiu",
+    "dependencies": {
+        "express": "~4.0.0",
+        "mongoose": "4.4.6"
+    }
+}
