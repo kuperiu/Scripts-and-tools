@@ -24,10 +24,8 @@ class Iron:
 
 #format the global array before we'll add new values
     def format_array(self):
-        counter = 0
-        for i in Iron.full_array[1]:
-            Iron.full_array[1][counter] = ""
-            counter += 1
+        for index,value in enumerate(Iron.full_array[1]):
+            Iron.full_array[1][index] = ""
 
 #add new keys and place the values in the array
     def add_key_to_full_array(self, decoded):
