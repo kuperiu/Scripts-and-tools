@@ -1,8 +1,11 @@
 #!/usr/bin/env python
-import boto3,optparse,subprocess
+import boto3,optparse,subprocess,sys
 
 '''
 connects to an ec2 instance by a tag name
+Before run:
+1. pip install boto3
+2. aws configure
 '''
 
 def get_public_ip(tag):
@@ -11,7 +14,6 @@ def get_public_ip(tag):
     for instance in instances:
         return instance.public_ip_address
     print("Tag name was not found")
-    sys.exit(1)
 
 
 def main():
