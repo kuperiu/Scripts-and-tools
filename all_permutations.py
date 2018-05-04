@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 import sys
 
+'''
+print all the possible permutations of a string in a length lexicographic order
+
+./all_permutations.py abc will output "a b c ab ac bc abc"
+'''
 def all_permutations(str):
     res = []
     length = len(str)
