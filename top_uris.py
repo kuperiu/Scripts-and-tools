@@ -49,3 +49,12 @@ if __name__ == '__main__':
 ##how to do it bash##
 #cat apache.log | awk '{print $7}' | sort | uniq -c | sort -r | head -n4
 #####################
+
+##and with stdin
+# lines=()
+# while read line; do
+#     lines+=($(echo $line | awk '{print $7}'))
+# done < $(cat /dev/stdin)
+
+# printf '%s\n' "${lines[@]}" | sort | uniq -c | sort -r | head -n4
+#####
