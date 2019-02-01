@@ -29,7 +29,12 @@ function parse_file {
         if [[ $line != "" ]]; then
             IFS=': ' read -r -a array <<< "$line"
             if [[ $(check_status ${array[1]}) == "1" ]]; then
-                echo "The service ${array[0]} is ${array[1]} ${array[2]}"
+                str="The service ${array[0]} is "
+                len=${#array[@]}
+                for (( i=1; i<len; i++ )); do
+                    str+="${array[$i]} "
+                done
+                echo $str
                 status=1
             fi
         fi
