@@ -39,7 +39,7 @@ function get_status() {
     env=$2
     longest_line=$(cat $file_name|awk '{print length}'|sort -nr|head -1)
     while read url; do 
-        res=$(curl -s -u OpsView:opsview_zetes491602 https://monx.${env}16i.testing.net/$url)
+        res=$(curl -s -u OpsView:1234 https://monx.${env}16i.testing.net/$url)
         print_res $url $res $longest_line
     done < $file_name
 }
